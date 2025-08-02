@@ -489,7 +489,10 @@ pub fn transaction_metadata_from_original_meta(
             .compute_units_consumed
             .map(|compute_unit_consumed| compute_unit_consumed)
             .or(None),
-        cost_units: meta_original.cost_units.map(|v| v.into()),
+        cost_units: {
+            #[allow(clippy::useless_conversion)]
+            meta_original.cost_units.map(|v| v.into())
+        },
     })
 }
 
