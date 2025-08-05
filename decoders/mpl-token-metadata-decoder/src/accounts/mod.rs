@@ -1,6 +1,6 @@
 use carbon_core::account::AccountDecoder;
 use carbon_core::deserialize::CarbonDeserialize;
-
+use crate::types::Key;
 use super::TokenMetadataDecoder;
 pub mod collection_authority_record;
 pub mod edition;
@@ -40,6 +40,21 @@ impl AccountDecoder<'_> for TokenMetadataDecoder {
         &self,
         account: &solana_account::Account,
     ) -> Option<carbon_core::account::DecodedAccount<Self::AccountType>> {
+
+        if let Some(first_byte) = account.data.first() {
+            if *first_byte == Key::MetadataV1 as u8 {
+                if let Some(decoded_account) = metadata::Metadata::deserialize(account.data.as_slice()) {
+                    return Some(carbon_core::account::DecodedAccount {
+                        lamports: account.lamports,
+                        data: TokenMetadataAccount::Metadata(decoded_account),
+                        owner: account.owner,
+                        executable: account.executable,
+                        rent_epoch: account.rent_epoch,
+                    });
+                }
+            }
+        }
+
         if let Some(decoded_account) =
             collection_authority_record::CollectionAuthorityRecord::deserialize(
                 account.data.as_slice(),
@@ -142,16 +157,6 @@ impl AccountDecoder<'_> for TokenMetadataDecoder {
             return Some(carbon_core::account::DecodedAccount {
                 lamports: account.lamports,
                 data: TokenMetadataAccount::MasterEditionV1(decoded_account),
-                owner: account.owner,
-                executable: account.executable,
-                rent_epoch: account.rent_epoch,
-            });
-        }
-
-        if let Some(decoded_account) = metadata::Metadata::deserialize(account.data.as_slice()) {
-            return Some(carbon_core::account::DecodedAccount {
-                lamports: account.lamports,
-                data: TokenMetadataAccount::Metadata(decoded_account),
                 owner: account.owner,
                 executable: account.executable,
                 rent_epoch: account.rent_epoch,
