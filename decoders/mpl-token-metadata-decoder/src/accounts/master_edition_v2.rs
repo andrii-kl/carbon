@@ -4,7 +4,6 @@ use carbon_core::{borsh, CarbonDeserialize};
 #[derive(
     CarbonDeserialize, Debug, serde::Deserialize, serde::Serialize, PartialEq, Eq, Clone, Hash,
 )]
-#[carbon(discriminator = "0x06")]
 pub struct MasterEditionV2 {
     pub key: Key,
     pub supply: u64,
