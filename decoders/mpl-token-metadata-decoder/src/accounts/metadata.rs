@@ -4,7 +4,7 @@ use carbon_core::{borsh, CarbonDeserialize};
 #[derive(
     CarbonDeserialize, Debug, serde::Deserialize, serde::Serialize, PartialEq, Eq, Clone, Hash,
 )]
-#[carbon(discriminator = "0x480b791a6fb5555d")]
+#[carbon(discriminator = "0x04")]
 pub struct Metadata {
     pub key: Key,
     pub update_authority: solana_pubkey::Pubkey,

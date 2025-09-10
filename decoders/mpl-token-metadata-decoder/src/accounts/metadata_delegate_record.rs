@@ -4,7 +4,7 @@ use carbon_core::{borsh, CarbonDeserialize};
 #[derive(
     CarbonDeserialize, Debug, serde::Deserialize, serde::Serialize, PartialEq, Eq, Clone, Hash,
 )]
-#[carbon(discriminator = "0xb994256b776af3ec")]
+#[carbon(discriminator = "0x0C")]
 pub struct MetadataDelegateRecord {
     pub key: Key,
     pub bump: u8,
