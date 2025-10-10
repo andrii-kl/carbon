@@ -1,10 +1,14 @@
 use carbon_core::{account_utils::next_account, borsh, CarbonDeserialize};
+use crate::types::{Data, DataV2};
 
 #[derive(
     CarbonDeserialize, Debug, serde::Serialize, serde::Deserialize, PartialEq, Eq, Clone, Hash,
 )]
 #[carbon(discriminator = "0x10")]
-pub struct CreateMetadataAccountV2 {}
+pub struct CreateMetadataAccountV2 {
+    pub data: DataV2,
+    pub is_mutable: bool
+}
 
 #[derive(Debug, PartialEq, Eq, Clone, Hash, serde::Serialize, serde::Deserialize)]
 pub struct CreateMetadataAccountV2InstructionAccounts {
