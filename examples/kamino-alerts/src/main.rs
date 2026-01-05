@@ -74,6 +74,7 @@ pub async fn main() -> CarbonResult<()> {
         Default::default(),
         Arc::new(RwLock::new(HashSet::new())),
         geyser_config,
+        None
     );
 
     carbon_core::pipeline::Pipeline::builder()

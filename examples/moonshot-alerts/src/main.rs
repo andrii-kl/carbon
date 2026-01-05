@@ -37,7 +37,7 @@ pub async fn main() -> CarbonResult<()> {
         env::var("RPC_WS_URL").unwrap_or("wss://api.mainnet-beta.solana.com/".to_string());
 
     log::info!("Starting with RPC: {rpc_ws_url}");
-    let block_subscribe = RpcBlockSubscribe::new(rpc_ws_url, filters);
+    let block_subscribe = RpcBlockSubscribe::new(rpc_ws_url, filters, None);
 
     carbon_core::pipeline::Pipeline::builder()
         .datasource(block_subscribe)

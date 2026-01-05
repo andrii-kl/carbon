@@ -507,6 +507,7 @@ async fn send_subscribe_update_transaction_info(
             meta: meta_original,
             is_vote: transaction_info.is_vote,
             slot,
+            index: None,
             block_time,
             block_hash: None,
         }));
